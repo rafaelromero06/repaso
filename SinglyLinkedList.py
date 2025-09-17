@@ -48,6 +48,22 @@ class SinglyLinkedList:
         self.head = self.head.next
         return value
     
+    def find(self, target):
+        current = self.head
+        index = 0
+        indices = []
+        while current:
+            if current.data == target:
+                indices.append(index)
+            current = current.next
+            index += 1
+        if indices:
+            print(f"El valor {target} se encontró en : {indices}")
+            return indices
+        else:
+            print(f"{target} no encontrado .")
+            return []
+    
     
     def pop(self):  # eliminar cola
         if self.is_empty():
@@ -70,6 +86,9 @@ sll.prepend(20)
 sll.prepend(25)
 sll.append(3)
 sll.append(4)
+sll.append(3)
 
 sll.pop_first()
 print(sll)
+sll.find(3)
+sll.find(100)

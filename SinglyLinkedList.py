@@ -65,7 +65,7 @@ class SinglyLinkedList:
             return []
     
     
-    def pop(self):  # eliminar cola
+    def pop(self):  
         if self.is_empty():
             raise IndexError("lista vacía")
         if self._size == 1:
@@ -76,6 +76,30 @@ class SinglyLinkedList:
         self.tail = prev
         self._size -= 1
         return data
+    def insertar_orden(self, data):
+        new_node = Node.Node(data)
+        if self.head is None or self.head.data >= new_node.data:
+            new_node.next = self.head
+            self.head = new_node
+            return
+        current = self.head
+        while current.next and current.next.data < new_node.data:
+            current = current.next
+        new_node.next = current.next
+        current.next = new_node
+    
+    def ordenar(self):
+        if self.is_empty() or self.head.next is None:
+            return
+        sorted_list = SinglyLinkedList()
+        current = self.head
+        while current:
+            sorted_list.insertar_orden(current.data)
+            current = current.next
+        self.head = sorted_list.head
+
+
+
 
 
 sll = SinglyLinkedList()
@@ -87,8 +111,12 @@ sll.prepend(25)
 sll.append(3)
 sll.append(4)
 sll.append(3)
+sll.append(10000)
+sll.append(1)
 
 sll.pop_first()
 print(sll)
 sll.find(3)
 sll.find(100)
+sll.ordenar()
+print(sll)
